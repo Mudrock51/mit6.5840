@@ -1,0 +1,31 @@
+Test (3B): basic agreement ...
+2024/12/13 11:36:15 0 节点超时，开始新一轮的选举，任期 Term = 0
+2024/12/13 11:36:15 Candidate 0 节点向 1 节点发送选票请求，当前 Term：1
+2024/12/13 11:36:15 Candidate 0 节点向 2 节点发送选票请求，当前 Term：1
+2024/12/13 11:36:15 1 节点 收到来自 Candidate 0 的选票请求，当前支持的是 -1
+2024/12/13 11:36:15 2 节点 收到来自 Candidate 0 的选票请求，当前支持的是 -1
+2024/12/13 11:36:15 Candidate 0 节点收到 2 的回复，投票结果是 true
+2024/12/13 11:36:15 Candidate 0 节点收到 1 的回复，投票结果是 true
+2024/12/13 11:36:15 0 赢得了选举, 作为 Leader 的任期 Term 是 1
+2024/12/13 11:36:15 Leader 0 第 1 次 发送心跳
+2024/12/13 11:36:15 1 节点 收到来自 Leader 0 的附加日志请求
+2024/12/13 11:36:15 2 节点 收到来自 Leader 0 的附加日志请求
+2024/12/13 11:36:15 1 节点因为 心跳/附加日志 重置了自己的心跳
+2024/12/13 11:36:15 2 节点因为 心跳/附加日志 重置了自己的心跳
+2024/12/13 11:36:16 Leader 0 第 2 次 发送心跳
+2024/12/13 11:36:16 2 节点 收到来自 Leader 0 的附加日志请求
+2024/12/13 11:36:16 2 节点因为 心跳/附加日志 重置了自己的心跳
+2024/12/13 11:36:16 1 节点 收到来自 Leader 0 的附加日志请求
+2024/12/13 11:36:16 1 节点因为 心跳/附加日志 重置了自己的心跳
+2024/12/13 11:36:16 Leader 0 第 3 次 发送心跳
+panic: runtime error: index out of range [7] with length 7
+
+goroutine 32 [running]:
+6.5840/raft.(*Raft).initAppendEntriesArgs(...)
+	/home/kris4/Desktop/GoRepos/6.5840/src/raft/raft.go:409
+6.5840/raft.(*Raft).sendHeartBeat(0xc00017e000)
+	/home/kris4/Desktop/GoRepos/6.5840/src/raft/raft.go:387 +0x6fd
+created by 6.5840/raft.(*Raft).finishElection in goroutine 34
+	/home/kris4/Desktop/GoRepos/6.5840/src/raft/raft.go:281 +0x31d
+exit status 2
+FAIL	6.5840/raft	0.458s

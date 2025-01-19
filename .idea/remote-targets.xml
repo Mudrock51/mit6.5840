@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <option name="projectDefaultTargetUuid" value="c1bbe509-70e6-49de-8542-78ceeb202d22" />
+    <targets>
+      <target name="WSL - Ubuntu-22.04" type="wsl" uuid="c1bbe509-70e6-49de-8542-78ceeb202d22">
+        <config>
+          <option name="distributionMsId" value="Ubuntu-22.04" />
+          <option name="projectRootOnTarget" value="{exitCode=0, timeout=false, cancelled=false, stdout=/tmp/tmp.o2PHk7MEI4&#10;, stderr=}/6.5840" />
+        </config>
+        <ContributedStateBase type="GoLanguageRuntime">
+          <config>
+            <option name="compiledExecutablesVolume">
+              <VolumeState>
+                <option name="remotePath" value="/mnt/e/Desktop/goTest/6.5840/src/main" />
+              </VolumeState>
+            </option>
+            <option name="goPath" value="/home/kris/go" />
+            <option name="goRoot" value="/usr/local/go/bin/go" />
+            <option name="goVersion" value="go1.23.3 linux/amd64" />
+            <option name="projectSourcesVolume">
+              <VolumeState>
+                <option name="remotePath" value="/mnt/e/Desktop/goTest/6.5840/src/main" />
+              </VolumeState>
+            </option>
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
