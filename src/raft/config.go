@@ -8,20 +8,24 @@ package raft
 // test with the original before submitting.
 //
 
-import "6.5840/labgob"
-import "6.5840/labrpc"
-import "bytes"
-import "log"
-import "sync"
-import "sync/atomic"
-import "testing"
-import "runtime"
-import "math/rand"
-import crand "crypto/rand"
-import "math/big"
-import "encoding/base64"
-import "time"
-import "fmt"
+import (
+	"bytes"
+	"encoding/base64"
+	"fmt"
+	"log"
+	"math/big"
+	"math/rand"
+	"runtime"
+	"sync"
+	"sync/atomic"
+	"testing"
+	"time"
+
+	"6.5840/labgob"
+	"6.5840/labrpc"
+
+	crand "crypto/rand"
+)
 
 func randstring(n int) string {
 	b := make([]byte, 2*n)
@@ -645,4 +649,25 @@ func (cfg *config) LogSize() int {
 		}
 	}
 	return logsize
+}
+
+func (rf *Raft) CondInstallSnapshot(lastIncludedTerm int, lastIncludedIndex int, snapshot []byte) bool {
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	// outdated snapshot
+	if lastIncludedIndex <= rf.commitIndex {
+		DPrintf("{Node %v} rejects outdated snapshot with lastIncludeIndex %v as current commitIndex %v is larger in term %v", rf.me, lastIncludedIndex, rf.commitIndex, rf.currentTerm)
+		return false
+	}
+	// need dummy entry at index 0
+	if lastIncludedIndex > rf.getLastLog().Index {
+		rf.logs = make([]LogEntry, 1)
+	} else {
+		rf.logs = shrinkEntries(rf.logs[lastIncludedIndex-rf.getFirstLog().Index:])
+		rf.logs[0].Command = nil
+	}
+	rf.logs[0].Term, rf.logs[0].Index = lastIncludedTerm, lastIncludedIndex
+	rf.commitIndex, rf.lastApplied = lastIncludedIndex, lastIncludedIndex
+	rf.persister.Save(rf.encodeState(), snapshot)
+	return true
 }
